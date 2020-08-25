@@ -6,7 +6,9 @@ const bodyParser  = require('body-parser')
 const morgan      = require('morgan')
 const cors        = require('cors')
 const app         = module.exports = express()
-const port        = parseInt(process.env.PORT || 3000)
+const port        = parseInt(process.env.PORT || 3300)
+
+const bag = require('./dice/routes')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -21,6 +23,8 @@ app.use(cors({origin: true, credentials: true})) // <= Disable if you don't need
 app.get('/', (req, res, next) =>{
   res.json("Template from Dan's Guides: https://github.com/justsml/guides/tree/master/express/setup-guide")
 })
+
+app.use('/bag', bag)
 
 // The following 2 `app.use`'s MUST follow ALL your routes/middleware
 app.use(notFound)
